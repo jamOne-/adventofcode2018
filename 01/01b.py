@@ -16,9 +16,4 @@ def solve(lines):
             frequencies.add(frequency)
 
 
-lines = []
-for line in sys.stdin:
-    lines.append(line)
-
-
-print(solve(lines))
+print(solve(sys.stdin))
