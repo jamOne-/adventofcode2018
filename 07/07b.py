@@ -1,7 +1,6 @@
 import sys
 import re
-import heapq
-from collections import defaultdict
+from collections import defaultdict, deque
 
 MAX_IN_QUEUE = 5
 
@@ -19,7 +18,7 @@ def insert_as_much_as_possible(time, queue, nodes):
 
     while len(queue) < MAX_IN_QUEUE and len(nodes) > 0:
         node = nodes.pop()
-        heapq.heappush(queue, (time + 61 + ord(node) - ord('A'), node))
+        queue.append((time + 61 + ord(node) - ord('A'), node))
 
 
 def solve(lines):
@@ -34,12 +33,12 @@ def solve(lines):
 
     current_time = 0
     waiting_nodes = list(get_starting_nodes(ins))
-    queue = []
+    queue = deque()
 
     insert_as_much_as_possible(current_time, queue, waiting_nodes)
 
     while queue:
-        time, node = heapq.heappop(queue)
+        time, node = queue.popleft()
         current_time = time
 
         for neighbour in nodes[node]:
